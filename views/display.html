@@ -1,0 +1,102 @@
+<div class="row">
+   <div class="col-sm-6 forms">
+      <div class="page-header">
+         <h4>Add Module</h4>
+      </div>
+
+      <form>
+         <div class="form-group">
+            <label>Module Name</label>
+            <a ng-click = "isFormOpen = !isFormOpen">
+                <span ng-if = "isFormOpen">Hide Form</span>
+                <span ng-if = "!isFormOpen">Show Form</span>
+            </a>
+         </div>
+         <div class="form-group" ng-show = "isFormOpen">
+            <input type="text" class="form-control" ng-model = "name" placeholder="Enter the name of your module">
+            <label>Module Website</label>
+            <div class="input-group">
+               <div class="input-group-addon">http://</div>
+               <input type="text" class="form-control" ng-model = "website" placeholder="Enter module's website">
+            </div>
+            <button type="submit" class="btn btn-primary" ng-click = "addModule()">Add Module</button>
+         </div>
+
+      </form>
+
+      <div class="page-header">
+         <label><h4>Sign-Up</h4></label>
+         <a ng-click = "isFormOpen2 = !isFormOpen2">
+             <span ng-if = "isFormOpen2">Hide Form</span>
+             <span ng-if = "!isFormOpen2">Show Form</span>
+         </a>
+      </div>
+
+      <form ng-show = "isFormOpen2">
+         <div class="form-group">
+            <label>First Name</label>
+            <input type="text" class="form-control" ng-model = "firstname" placeholder="Enter your First Name">
+         </div>
+         <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" class="form-control" ng-model = "lastname" placeholder="Enter your Last Name">
+         </div>
+         <div class="form-group">
+            <label>Email address</label>
+            <input type="email" class="form-control" ng-model = "email" placeholder="Enter your Email Address">
+         </div>
+         <div class="form-group">
+            <label>Module</label>
+            <select class="form-control" ng-model = "chosenModule">
+               <option ng-repeat = "item in moduleList">{{item.name}}</option>
+            </select>
+         </div>
+         <button type="submit" class="btn btn-primary" ng-click = "addStudent()">Sign-Up</button>
+      </form>
+
+      <br><br><br>
+   </div>
+
+   <div class="col-sm-6 groups">
+      <div class="page-header">
+         <h4>Modules &amp; Groups</h4>
+      </div>
+      <div class="panel panel-primary" ng-repeat = "item in moduleList">
+         <div class="panel-heading">
+            <h4 class="panel-title">
+               <a href="http://{{item.website}}" target="_blank">{{item.name}}</a>
+            </h4>
+         </div>
+         <div class="panel-body">
+            <div class="text-center" ng-if = "item.members.length == 0">
+                <p class="text-center">No students have signed up for this module.</p>
+            </div>
+            <div class="table" ng-if = "item.members.length != 0">
+            <table class="table table-bordered table-hover table-striped">
+               <tr>
+                  <th>First</th>
+                  <th>Last</th>
+                  <th>E-mail</th>
+                  <th></th>
+               </tr>
+               <tr ng-repeat = "student in item.members">
+                  <td>{{student.firstname}}</td>
+                  <td>{{student.lastname}}</td>
+                  <td>{{student.email}}</td>
+                  <td class="text-center">
+                     <button class="btn btn-warning btn-sm" ng-click = "deleteStudent($parent.$index, $index)">
+                     <span class="glyphicon glyphicon-trash"></span>
+                     </button>
+                  </td>
+               </tr>
+            </table>
+            </div>
+            <p class="text-right remove-group-link">
+               <button class="btn btn-warning" ng-click = "deleteModule($index)">
+               <span class="glyphicon glyphicon-trash"></span> Remove Group
+               </button>
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
